@@ -32,6 +32,13 @@ public class User {
     @Column
     private String password;
 
+    @ManyToOne(cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH
+    })
+    @JoinColumn(name = "role_name", nullable = false)
+    private Role role;
+
     @Column(name = "phone_number")
     private String phoneNumber;
 
