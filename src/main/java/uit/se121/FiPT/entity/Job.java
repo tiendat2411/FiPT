@@ -46,7 +46,7 @@ public class Job {
     Category jobCategory;
 
     @Column
-    double wage;
+    Double wage;
 
     @Column
     String address;
