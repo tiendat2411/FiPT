@@ -20,11 +20,11 @@ public class JobResponse {
     String name;
     String description;
     Date recruitedDate;
-    Category jobCategory;
+    String jobCategory;
     double wage;
     String address;
     String contactInfo;
     String requirements;
-    Employer employer;
+    String employerName;
     List<Workship> schedule;
 }

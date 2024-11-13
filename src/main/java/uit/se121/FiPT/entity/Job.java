@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -66,4 +67,9 @@ public class Job {
 
     @ElementCollection
     List<Workship> schedule;
+
+    @ElementCollection
+    @CollectionTable(name = "job_images", joinColumns = @JoinColumn(name = "job_id"))
+    @Column(name = "image_url")
+    List<String> imageUrls = new ArrayList<>();
 }

@@ -6,5 +6,4 @@ import uit.se121.FiPT.entity.Job;
 
 @Repository
 public interface JobRepository extends JpaRepository<Job, String> {
-
 }

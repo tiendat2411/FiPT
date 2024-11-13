@@ -17,7 +17,6 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class JobCreationRequest {
     String name;
-
     String description;
     Date recruitedDate;
     String categoryId;
@@ -26,4 +25,5 @@ public class JobCreationRequest {
     String contactInfo;
     String requirements;
     String employerId;
+    List<String> imageUrl;
 }

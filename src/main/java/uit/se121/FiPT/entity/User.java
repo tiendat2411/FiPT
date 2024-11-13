@@ -36,6 +36,9 @@ public class User {
     String email;
 
     @Column
+    String avatar;
+
+    @Column
     String username;
 
     @Column
