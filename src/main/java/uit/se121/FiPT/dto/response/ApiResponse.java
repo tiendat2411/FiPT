@@ -1,4 +1,4 @@
-package uit.se121.FiPT.dto.request;
+package uit.se121.FiPT.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;

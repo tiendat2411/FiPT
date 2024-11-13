@@ -7,8 +7,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
-import uit.se121.FiPT.dto.request.ApiResponse;
+import uit.se121.FiPT.dto.response.ApiResponse;
 
 import java.util.Map;
 import java.util.Objects;

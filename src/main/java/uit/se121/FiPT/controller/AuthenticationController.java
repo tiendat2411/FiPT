@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uit.se121.FiPT.dto.request.ApiResponse;
+import uit.se121.FiPT.dto.response.ApiResponse;
 import uit.se121.FiPT.dto.request.AuthenticationRequest;
 import uit.se121.FiPT.dto.request.IntrospectRequest;
 import uit.se121.FiPT.dto.response.AuthenticationResponse;
