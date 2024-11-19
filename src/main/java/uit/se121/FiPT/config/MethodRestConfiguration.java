@@ -24,8 +24,6 @@ public class MethodRestConfiguration implements RepositoryRestConfigurer {
         HttpMethod[] disableMethods = {
                 HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH, HttpMethod.DELETE
         };
-//
-//        disableHTTPMethods(Category.class, config, disableMethods);
     }
 
     private void disableHTTPMethods(Class c, RepositoryRestConfiguration config, HttpMethod[] disableMethods) {

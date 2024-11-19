@@ -7,20 +7,22 @@ import uit.se121.FiPT.entity.User;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, String> {
 //    public Page<User> findByIdContaining(@RequestParam("id") String id, Pageable pageable);
 
-    public boolean existsByEmail(String email);
+//    public boolean existsByEmail(String email);
 
-    public boolean existsByFirstName(String firstName);
+//    public boolean existsByFirstName(String firstName);
 
-    public User findByEmail(String email);
+//    public User findByEmail(String email);
+//
+//    boolean existsByUsername(String username);
+//
+//    Optional<User> findByUsername(String username);
 
-    boolean existsByUsername(String username);
+//    public Optional<User> findById(String id);
+//
+//    public Optional<User> deleteById(String id);
 
-    Optional<User> findByUsername(String username);
-
-    public Optional<User> findById(String id);
-
-    public Optional<User> deleteById(String id);
+    Optional<User> findByAccount_Username(String username);
 }

@@ -1,19 +1,21 @@
 package uit.se121.FiPT.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import uit.se121.FiPT.dto.request.UserCreationRequest;
-import uit.se121.FiPT.dto.request.UserUpdateRequest;
-import uit.se121.FiPT.dto.response.UserResponse;
+import uit.se121.FiPT.dto.request.AccountRequest.AccountCreationRequest;
+import uit.se121.FiPT.dto.request.UserRequest.UserProfileUpdateRequest;
+import uit.se121.FiPT.dto.response.AccountResponse.UserProfileResponse;
+import uit.se121.FiPT.dto.response.AccountResponse.UserResponse;
 import uit.se121.FiPT.entity.User;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    User toUser(UserCreationRequest request);
+    User toUser(AccountCreationRequest request);
 
     UserResponse toUserResponse(User user);
 
-    @Mapping(target = "roles", ignore = true)
-    void updateUser(@MappingTarget User user, UserUpdateRequest request);
+    UserProfileResponse toUserProfileResponse(User user);
+
+//    @Mapping(target = "roles", ignore = true)
+    void updateUserProfile(@MappingTarget User user, UserProfileUpdateRequest request);
 }

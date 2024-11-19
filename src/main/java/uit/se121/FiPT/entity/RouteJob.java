@@ -31,7 +31,7 @@ public class RouteJob {
             CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.PERSIST
     })
     @JoinTable(
-            name = "jobprocess_job", // Tên bảng trung gian
+            name = "jobprocess_job",
             joinColumns = @JoinColumn(name = "route_id"),
             inverseJoinColumns = @JoinColumn(name = "job_id")
     )

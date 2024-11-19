@@ -19,6 +19,10 @@ public class Employer {
     @Column(name = "employer_id")
     String id;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id", referencedColumnName = "account_id")
+    Account account;
+
     @Column
     String name;
 
@@ -27,6 +31,9 @@ public class Employer {
 
     @Column(name = "phone_number")
     String phoneNumber;
+
+    @Column
+    String avatar;
 
     @Column
     String description;

@@ -1,18 +1,18 @@
-package uit.se121.FiPT.dto.request;
+package uit.se121.FiPT.dto.request.UserRequest;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.time.LocalDate;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserUpdateRequest {
-    String password;
+public class UserProfileUpdateRequest {
     String firstName;
     String lastName;
-    LocalDate dob;
+    Integer age;
+    Boolean gender;
+    String avatar;
+    String phoneNumber;
 }

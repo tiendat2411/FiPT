@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -41,8 +43,11 @@ public class Application {
     Job job;
 
     @Column
-    Date date;
+    LocalDateTime date;
 
     @Column
     String status;
+
+    @Column
+    String cvUrls;
 }

@@ -7,7 +7,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import uit.se121.FiPT.dto.response.ApiResponse;
-import uit.se121.FiPT.dto.request.JobCreationRequest;
+import uit.se121.FiPT.dto.request.JobRequest.JobCreationRequest;
 import uit.se121.FiPT.dto.response.JobResponse;
 import uit.se121.FiPT.service.JobService;
 
