@@ -19,6 +19,7 @@ public enum ErrorCode {
     JOB_NOT_FOUND(1010, "Job not found", HttpStatus.NOT_FOUND),
     JOB_ACCEPTED( 1011, "Job accepted", HttpStatus.BAD_REQUEST),
     USER_NOT_EXISTED(1012, "User not existed", HttpStatus.BAD_REQUEST),
+    JOB_APPROVED(1013, "Job approved", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(int code, String message, HttpStatus statusCode) {

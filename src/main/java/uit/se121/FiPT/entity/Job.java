@@ -72,4 +72,7 @@ public class Job {
     @CollectionTable(name = "job_images", joinColumns = @JoinColumn(name = "job_id"))
     @Column(name = "image_url")
     List<String> imageUrls = new ArrayList<>();
+
+    @Column
+    String status;
 }

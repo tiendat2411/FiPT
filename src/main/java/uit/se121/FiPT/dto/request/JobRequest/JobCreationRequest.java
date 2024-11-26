@@ -22,4 +22,5 @@ public class JobCreationRequest {
     String requirements;
     String employerId;
     List<String> imageUrl;
+    String status;
 }

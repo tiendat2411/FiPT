@@ -1,5 +1,4 @@
-package uit.se121.FiPT.dto.request.Application;
-
+package uit.se121.FiPT.dto.response.ApplicationResponse;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -9,7 +8,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ApplyJobRequest {
+public class ApplicationResponse {
     String user;
     String employer;
     String job;
