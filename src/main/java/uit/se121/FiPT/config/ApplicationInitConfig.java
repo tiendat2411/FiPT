@@ -9,9 +9,11 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import uit.se121.FiPT.entity.User;
-import uit.se121.FiPT.enums.Role;
-import uit.se121.FiPT.repository.UserRepository;
+import uit.se121.FiPT.entity.Account;
+import uit.se121.FiPT.entity.Role;
+import uit.se121.FiPT.repository.AccountRepository;
+import uit.se121.FiPT.repository.RoleRepository;
+
 
 import java.util.HashSet;
 
@@ -20,23 +22,27 @@ import java.util.HashSet;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class ApplicationInitConfig {
-
+    AccountRepository accountRepository;
+    RoleRepository roleRepository;
     PasswordEncoder passwordEncoder;
 
     @Bean
-    ApplicationRunner applicationRunner(UserRepository userRepository){
+    ApplicationRunner applicationRunner() {
         return args -> {
-            if (userRepository.findByUsername("admin").isEmpty()){
-                var roles = new HashSet<String>();
-                roles.add(Role.ADMIN.name());
-
-                User user = User.builder()
+            if (roleRepository.findByName("ADMIN").isEmpty()) {
+                Role role =Role.builder()
+                        .name("ADMIN")
+                        .build();
+                roleRepository.save(role);
+            }
+            if (accountRepository.findByUsername("admin").isEmpty()) {
+                Account account = Account.builder()
                         .username("admin")
                         .password(passwordEncoder.encode("admin"))
-                        .roles(roles)
+                        .role(roleRepository.findByName("ADMIN").get())
                         .build();
 
-                userRepository.save(user);
+                accountRepository.save(account);
                 log.warn("admin user has been created with default password: admin, please change it");
             }
         };

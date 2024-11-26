@@ -4,23 +4,26 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import uit.se121.FiPT.dto.request.UserCreationRequest;
-import uit.se121.FiPT.dto.request.UserUpdateRequest;
-import uit.se121.FiPT.dto.response.UserResponse;
+import uit.se121.FiPT.dto.request.UserRequest.UserCreationRequest;
+import uit.se121.FiPT.dto.request.UserRequest.UserProfileUpdateRequest;
+import uit.se121.FiPT.dto.response.AccountResponse.UserProfileResponse;
+import uit.se121.FiPT.dto.response.AccountResponse.UserResponse;
+import uit.se121.FiPT.dto.response.ApiResponse;
+import uit.se121.FiPT.entity.Account;
 import uit.se121.FiPT.entity.User;
-import uit.se121.FiPT.enums.Role;
 import uit.se121.FiPT.exception.AppException;
 import uit.se121.FiPT.exception.ErrorCode;
+import uit.se121.FiPT.mapper.AccountMapper;
 import uit.se121.FiPT.mapper.UserMapper;
+import uit.se121.FiPT.repository.AccountRepository;
+import uit.se121.FiPT.repository.RoleRepository;
 import uit.se121.FiPT.repository.UserRepository;
 
-
-import java.util.HashSet;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -29,57 +32,60 @@ import java.util.List;
 @Slf4j
 public class UserService {
     UserMapper userMapper;
+    RoleRepository roleRepository;
     UserRepository userRepository;
+    AccountRepository accountRepository;
     PasswordEncoder passwordEncoder;
 
-    public UserResponse createUser(UserCreationRequest request){
-        if (userRepository.existsByUsername(request.getUsername()))
-            throw new AppException(ErrorCode.USER_EXISTED);
+    public UserResponse createUser(UserCreationRequest request) {
+        if(accountRepository.existsByUsername(request.getUsername())){
+            throw new AppException(ErrorCode.ACCOUNT_EXISTED);
+        }
+        Account account = Account.builder()
+                .username(request.getUsername())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .creationDate(LocalDate.now())
+                .email(request.getEmail())
+                .isActive(true)
+                .role(roleRepository.findByName(request.getRole()).get())
+                .build();
 
-        User user = userMapper.toUser(request);
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-
-        HashSet<String> roles = new HashSet<>();
-        roles.add(Role.USER.name());
-
-        user.setRoles(roles);
-
+        User user = new User();
+        user.setAccount(account);
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
-    public UserResponse getMyInfo(){
+    public UserProfileResponse getMyProfile(){
         var context = SecurityContextHolder.getContext();
         String name = context.getAuthentication().getName();
 
-        User user = userRepository.findByUsername(name).orElseThrow(
+        User user = userRepository.findByAccount_Username(name).orElseThrow(
                 () -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
-        return userMapper.toUserResponse(user);
+        return userMapper.toUserProfileResponse(user);
     }
 
-    public UserResponse updateUser(String userId, UserUpdateRequest request) {
+    public UserProfileResponse updateUserProfile(String userId, UserProfileUpdateRequest request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
-        userMapper.updateUser(user, request);
+        userMapper.updateUserProfile(user, request);
 
-        return userMapper.toUserResponse(userRepository.save(user));
+        return userMapper.toUserProfileResponse(userRepository.save(user));
     }
 
     public void deleteUser(String userId){
         userRepository.deleteById(userId);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<UserResponse> getUsers(){
-        log.info("In method get Users");
         return userRepository.findAll().stream()
                 .map(userMapper::toUserResponse).toList();
     }
 
-    @PostAuthorize("returnObject.username == authentication.name")
+//    @PostAuthorize("returnObject.account.username == authentication.name")
     public UserResponse getUser(String id){
-        log.info("In method get user by Id");
         return userMapper.toUserResponse(userRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));
     }

@@ -19,10 +19,12 @@ import uit.se121.FiPT.dto.request.AuthenticationRequest;
 import uit.se121.FiPT.dto.request.IntrospectRequest;
 import uit.se121.FiPT.dto.response.AuthenticationResponse;
 import uit.se121.FiPT.dto.response.IntrospectResponse;
-import uit.se121.FiPT.entity.User;
+import uit.se121.FiPT.entity.Account;
+import uit.se121.FiPT.entity.Role;
 import uit.se121.FiPT.exception.AppException;
 import uit.se121.FiPT.exception.ErrorCode;
-import uit.se121.FiPT.repository.UserRepository;
+import uit.se121.FiPT.repository.AccountRepository;
+
 
 import java.text.ParseException;
 import java.time.Instant;
@@ -35,7 +37,7 @@ import java.util.StringJoiner;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthenticationService {
-    UserRepository userRepository;
+    AccountRepository accountRepository;
 
     @NonFinal
     @Value("${jwt.signerKey}")
@@ -58,18 +60,18 @@ public class AuthenticationService {
                 .build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request){
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-        var user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        var account = accountRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_EXISTED));
 
         boolean authenticated = passwordEncoder.matches(request.getPassword(),
-                user.getPassword());
+                account.getPassword());
 
         if (!authenticated)
             throw new AppException(ErrorCode.UNAUTHENTICATED);
 
-        var token = generateToken(user);
+        var token = generateToken(account);
 
         return AuthenticationResponse.builder()
                 .token(token)
@@ -77,17 +79,17 @@ public class AuthenticationService {
                 .build();
     }
 
-    private String generateToken(User user) {
+    private String generateToken(Account account) {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(user.getUsername())
+                .subject(account.getUsername())
                 .issuer("fipt.com")
                 .issueTime(new Date())
                 .expirationTime(new Date(
                         Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
                 ))
-                .claim("scope", buildScope(user))
+                .claim("scope", buildScope(account))
                 .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
@@ -103,10 +105,18 @@ public class AuthenticationService {
         }
     }
 
-    private String buildScope(User user){
+    private String buildScope(Account account) {
         StringJoiner stringJoiner = new StringJoiner(" ");
-        if (!CollectionUtils.isEmpty(user.getRoles()))
-            user.getRoles().forEach(stringJoiner::add);
+
+        if (account.getRole() != null) {
+            Role role = account.getRole();
+            stringJoiner.add("ROLE_" + role.getName());
+
+            if (!CollectionUtils.isEmpty(role.getPermissions())) {
+                role.getPermissions()
+                        .forEach(permission -> stringJoiner.add(permission.getName()));
+            }
+        }
 
         return stringJoiner.toString();
     }

@@ -27,4 +27,5 @@ public class JobResponse {
     String requirements;
     String employerName;
     List<Workship> schedule;
+    String status;
 }

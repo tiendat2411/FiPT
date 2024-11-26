@@ -1,21 +1,19 @@
-package uit.se121.FiPT.dto.response;
+package uit.se121.FiPT.dto.response.AccountResponse;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.time.LocalDate;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserResponse {
+public class UserProfileResponse {
     String id;
-    String username;
     String firstName;
     String lastName;
-    LocalDate dob;
-    Set<String> roles;
+    Integer age;
+    Boolean gender;
+    String avatar;
+    String phoneNumber;
 }

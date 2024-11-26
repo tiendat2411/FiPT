@@ -1,11 +1,7 @@
-package uit.se121.FiPT.dto.request;
+package uit.se121.FiPT.dto.request.JobRequest;
 
-import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import uit.se121.FiPT.entity.Category;
-import uit.se121.FiPT.entity.Employer;
-import uit.se121.FiPT.entity.Workship;
 
 import java.util.Date;
 import java.util.List;
@@ -26,4 +22,5 @@ public class JobCreationRequest {
     String requirements;
     String employerId;
     List<String> imageUrl;
+    String status;
 }

@@ -20,6 +20,10 @@ public class User {
     @Column(name = "user_id")
     String id;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id", referencedColumnName = "account_id")
+    Account account;
+
     @Column(name = "first_name")
     String firstName;
 
@@ -33,19 +37,7 @@ public class User {
     Boolean gender;
 
     @Column
-    String email;
-
-    @Column
     String avatar;
-
-    @Column
-    String username;
-
-    @Column
-    String password;
-
-    @ElementCollection
-    Set<String> roles;
 
     @Column(name = "phone_number")
     String phoneNumber;
