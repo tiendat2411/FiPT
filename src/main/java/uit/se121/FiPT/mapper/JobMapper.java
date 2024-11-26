@@ -2,8 +2,10 @@ package uit.se121.FiPT.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import uit.se121.FiPT.dto.request.JobRequest.JobCreationRequest;
-import uit.se121.FiPT.dto.response.JobResponse;
+import uit.se121.FiPT.dto.request.JobRequest.JobUpdateRequest;
+import uit.se121.FiPT.dto.response.JobResponse.JobResponse;
 import uit.se121.FiPT.entity.Job;
 
 
@@ -17,4 +19,5 @@ public interface JobMapper {
     @Mapping(source = "jobCategory.name", target = "jobCategory")
     JobResponse toJobResponse(Job job);
 
+    Job updateJob(@MappingTarget Job job, JobUpdateRequest request);
 }

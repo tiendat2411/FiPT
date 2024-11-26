@@ -68,7 +68,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ApiResponse<UserResponse> registerAccount(@RequestBody @Validated UserCreationRequest request) {
+    ApiResponse<UserResponse> registerAccount(@RequestBody @Validated UserCreationRequest request) {
         return ApiResponse.<UserResponse>builder()
                 .result(userService.createUser(request))
                 .build();

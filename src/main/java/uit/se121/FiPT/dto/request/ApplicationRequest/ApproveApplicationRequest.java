@@ -1,4 +1,4 @@
-package uit.se121.FiPT.dto.request.Application;
+package uit.se121.FiPT.dto.request.ApplicationRequest;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

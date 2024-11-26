@@ -1,11 +1,7 @@
-package uit.se121.FiPT.dto.response;
+package uit.se121.FiPT.dto.response.JobResponse;
 
-import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import uit.se121.FiPT.entity.Category;
-import uit.se121.FiPT.entity.Employer;
-import uit.se121.FiPT.entity.User;
 import uit.se121.FiPT.entity.Workship;
 
 import java.util.Date;

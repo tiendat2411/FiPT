@@ -6,8 +6,9 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import uit.se121.FiPT.dto.request.JobRequest.JobCreationRequest;
+import uit.se121.FiPT.dto.request.JobRequest.JobUpdateRequest;
 import uit.se121.FiPT.dto.response.ApiResponse;
-import uit.se121.FiPT.dto.response.JobResponse;
+import uit.se121.FiPT.dto.response.JobResponse.JobResponse;
 import uit.se121.FiPT.entity.Category;
 import uit.se121.FiPT.entity.Employer;
 import uit.se121.FiPT.entity.Job;
@@ -26,10 +27,11 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class JobService {
-    JobMapper jobMapper;
     JobRepository jobRepository;
     EmployerRepository employerRepository;
     CategoryRepository categoryRepository;
+
+    JobMapper jobMapper;
 
     public List<JobResponse> getAllJobs() {
         List<Job> jobs = jobRepository.findAll();
@@ -65,6 +67,15 @@ public class JobService {
                 .message("Delete job successfully")
                 .result(null)
                 .build();
+    }
+
+    public JobResponse updateJob(JobUpdateRequest request, String jobId) {
+        Job jobUpdated = jobRepository.findById(jobId).get();
+
+        jobMapper.updateJob(jobUpdated, request);
+
+        jobRepository.save(jobUpdated);
+        return jobMapper.toJobResponse(jobUpdated);
     }
 
 }
