@@ -31,10 +31,11 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class UserService {
-    UserMapper userMapper;
     RoleRepository roleRepository;
     UserRepository userRepository;
     AccountRepository accountRepository;
+
+    UserMapper userMapper;
     PasswordEncoder passwordEncoder;
 
     public UserResponse createUser(UserCreationRequest request) {

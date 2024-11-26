@@ -5,7 +5,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -43,7 +42,7 @@ public class User {
     String phoneNumber;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    SpecialInfo specialInfo;
+    ExpertiseProfile specialInfo;
 
     @Column
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = {

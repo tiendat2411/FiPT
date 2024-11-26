@@ -5,14 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import uit.se121.FiPT.dto.request.Application.ApplyJobRequest;
-import uit.se121.FiPT.dto.request.UserRequest.UserCreationRequest;
-import uit.se121.FiPT.dto.response.AccountResponse.UserResponse;
+import uit.se121.FiPT.dto.request.ApplicationRequest.ApplyJobRequest;
 import uit.se121.FiPT.dto.response.ApplicationResponse.ApplicationResponse;
-import uit.se121.FiPT.entity.Account;
 import uit.se121.FiPT.entity.Application;
 import uit.se121.FiPT.entity.Job;
-import uit.se121.FiPT.entity.User;
 import uit.se121.FiPT.exception.AppException;
 import uit.se121.FiPT.exception.ErrorCode;
 import uit.se121.FiPT.mapper.ApplicationMapper;
@@ -21,10 +17,7 @@ import uit.se121.FiPT.repository.EmployerRepository;
 import uit.se121.FiPT.repository.JobRepository;
 import uit.se121.FiPT.repository.UserRepository;
 
-import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +28,7 @@ public class ApplicaionService {
     UserRepository userRepository;
     EmployerRepository employerRepository;
     JobRepository jobRepository;
+
     ApplicationMapper applicationMapper;
 
     public ApplicationResponse applyJob(ApplyJobRequest request) {

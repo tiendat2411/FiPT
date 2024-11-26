@@ -11,13 +11,13 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "special_info")
-public class SpecialInfo {
+public class ExpertiseProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "specialinfo_id")
     String id;
 
-    @OneToOne  // Nếu mỗi Wishlist chỉ có một User
+    @OneToOne
     @JoinColumn(name = "user_id")
     User user;
 
