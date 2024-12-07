@@ -5,6 +5,8 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.Duration;
+import java.time.Period;
 import java.util.List;
 
 @Entity
@@ -25,7 +27,7 @@ public class RouteJob {
     User user;
 
     @Column
-    int duration;
+    Period duration;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {
             CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.PERSIST

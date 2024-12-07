@@ -34,8 +34,8 @@ import java.util.StringJoiner;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
 public class AuthenticationService {
     AccountRepository accountRepository;
 
