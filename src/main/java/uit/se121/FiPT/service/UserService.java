@@ -39,7 +39,7 @@ public class UserService {
     PasswordEncoder passwordEncoder;
 
     public UserResponse createUser(UserCreationRequest request) {
-        if(accountRepository.existsByUsername(request.getUsername())){
+        if (accountRepository.existsByUsername(request.getUsername())) {
             throw new AppException(ErrorCode.ACCOUNT_EXISTED);
         }
         Account account = Account.builder()
@@ -56,7 +56,7 @@ public class UserService {
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
-    public UserProfileResponse getMyProfile(){
+    public UserProfileResponse getMyProfile() {
         var context = SecurityContextHolder.getContext();
         String name = context.getAuthentication().getName();
 
@@ -75,18 +75,18 @@ public class UserService {
         return userMapper.toUserProfileResponse(userRepository.save(user));
     }
 
-    public void deleteUser(String userId){
+    public void deleteUser(String userId) {
         userRepository.deleteById(userId);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<UserResponse> getUsers(){
+    public List<UserResponse> getUsers() {
         return userRepository.findAll().stream()
                 .map(userMapper::toUserResponse).toList();
     }
 
-//    @PostAuthorize("returnObject.account.username == authentication.name")
-    public UserResponse getUser(String id){
+    //    @PostAuthorize("returnObject.account.username == authentication.name")
+    public UserResponse getUser(String id) {
         return userMapper.toUserResponse(userRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));
     }

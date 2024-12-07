@@ -14,6 +14,7 @@ import uit.se121.FiPT.exception.ErrorCode;
 import uit.se121.FiPT.mapper.AccountMapper;
 import uit.se121.FiPT.repository.AccountRepository;
 import uit.se121.FiPT.repository.RoleRepository;
+
 import java.time.LocalDate;
 
 
@@ -28,8 +29,8 @@ public class AccountService {
     AccountMapper accountMapper;
     PasswordEncoder passwordEncoder;
 
-    public AccountResponse createAccount(AccountCreationRequest request){
-        if(accountRepository.existsByUsername(request.getUsername())){
+    public AccountResponse createAccount(AccountCreationRequest request) {
+        if (accountRepository.existsByUsername(request.getUsername())) {
             throw new AppException(ErrorCode.ACCOUNT_EXISTED);
         }
         Account account = accountMapper.toAccount(request);

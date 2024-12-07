@@ -37,7 +37,7 @@ public class JobService {
         List<Job> jobs = jobRepository.findAll();
         List<JobResponse> jobResponses = new ArrayList<>();
         for (Job job : jobs) {
-            JobResponse jobResponse = jobMapper.toJobResponse(job)  ;
+            JobResponse jobResponse = jobMapper.toJobResponse(job);
             jobResponses.add(jobResponse);
         }
         return jobResponses;
