@@ -3,6 +3,11 @@ package uit.se121.FiPT.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import uit.se121.FiPT.common.ExpertiseSkill;
+import uit.se121.FiPT.common.SoftSkill;
+import uit.se121.FiPT.common.Workship;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -11,7 +16,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "special_info")
-public class ExpertiseProfile {
+public class AdvanceProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "specialinfo_id")
@@ -30,6 +35,15 @@ public class ExpertiseProfile {
 
     @Column
     String address;
+
+    @Embedded
+    SoftSkill softSkill;
+
+    @Embedded
+    ExpertiseSkill  expertiseSkill;
+
+    @ElementCollection
+    List<Workship> workingTime;
 
     @Column(name = "point_communicate")
     int pointCommunicate;

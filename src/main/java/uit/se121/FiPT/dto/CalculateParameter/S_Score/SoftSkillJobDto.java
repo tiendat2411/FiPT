@@ -1,4 +1,4 @@
-package uit.se121.FiPT.dto.CalculateParameter;
+package uit.se121.FiPT.dto.CalculateParameter.S_Score;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

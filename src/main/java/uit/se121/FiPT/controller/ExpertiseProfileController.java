@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uit.se121.FiPT.dto.request.ExpertiseProfileRequest.ExpertiseProfileCreationRequest;
 import uit.se121.FiPT.dto.request.ExpertiseProfileRequest.UpdateExpertiseProfileRequest;
-import uit.se121.FiPT.dto.response.AccountResponse.UserResponse;
 import uit.se121.FiPT.dto.response.ApiResponse;
 import uit.se121.FiPT.dto.response.ExpertiseProfileRespone.ExpertiseProfileResponse;
-import uit.se121.FiPT.entity.ExpertiseProfile;
 import uit.se121.FiPT.mapper.ExpertiseProfileMapper;
 import uit.se121.FiPT.service.ExpertiseProfileService;
 

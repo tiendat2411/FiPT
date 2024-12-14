@@ -3,6 +3,7 @@ package uit.se121.FiPT.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import uit.se121.FiPT.common.Workship;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +21,9 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "job_id")
     String id;
+
+    @OneToOne(mappedBy = "job", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    JobValue jobValue;
 
     @ManyToOne(cascade = {
             CascadeType.PERSIST, CascadeType.MERGE,
