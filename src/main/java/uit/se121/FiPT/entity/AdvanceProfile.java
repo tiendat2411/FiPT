@@ -25,7 +25,8 @@ public class ExpertiseProfile {
     String yearCollege;
 
     @Column
-    String major;
+    @ManyToOne
+    Major major;
 
     @Column
     String address;
