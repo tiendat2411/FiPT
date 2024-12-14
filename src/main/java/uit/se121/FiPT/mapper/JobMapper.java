@@ -5,7 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import uit.se121.FiPT.dto.request.JobRequest.JobCreationRequest;
 import uit.se121.FiPT.dto.request.JobRequest.JobUpdateRequest;
-import uit.se121.FiPT.dto.response.JobResponse.JobResponse;
+import uit.se121.FiPT.dto.response.Job_Response.JobResponse;
 import uit.se121.FiPT.entity.Job;
 
 

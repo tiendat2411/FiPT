@@ -1,8 +1,8 @@
-package uit.se121.FiPT.dto.response.JobResponse;
+package uit.se121.FiPT.dto.response.Job_Response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import uit.se121.FiPT.entity.Workship;
+import uit.se121.FiPT.common.Workship;
 
 import java.util.Date;
 import java.util.List;

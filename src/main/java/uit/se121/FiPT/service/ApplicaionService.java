@@ -37,11 +37,6 @@ public class ApplicaionService {
         }
 
         Application application = applicationMapper.toApplication(request);
-        application.setUser(userRepository.findById(request.getUser()).get());
-        application.setJob(jobRepository.findById(request.getJob()).get());
-        application.setEmployer(employerRepository.findById(request.getEmployer()).get());
-        application.setStatus("Pending Review");
-
         return applicationMapper.toApplicationResponse(applicationRepository.save(application));
     }
 

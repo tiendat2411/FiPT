@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import uit.se121.FiPT.dto.request.JobRequest.JobCreationRequest;
 import uit.se121.FiPT.dto.request.JobRequest.JobUpdateRequest;
 import uit.se121.FiPT.dto.response.ApiResponse;
-import uit.se121.FiPT.dto.response.JobResponse.JobResponse;
+import uit.se121.FiPT.dto.response.Job_Response.JobResponse;
 import uit.se121.FiPT.entity.Category;
 import uit.se121.FiPT.entity.Employer;
 import uit.se121.FiPT.entity.Job;

@@ -26,3 +26,8 @@ spring:
 
 jwt:
   signerKey: "1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij"
+
+cloudinary:
+  cloud_name: "dewughkw1"
+  api_key: "999265231858875"
+  api_secret: "thG0a26qLVeu7RX49zeZfBcMhdg"

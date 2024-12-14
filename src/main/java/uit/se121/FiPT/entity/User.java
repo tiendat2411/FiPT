@@ -42,7 +42,7 @@ public class User {
     String phoneNumber;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    ExpertiseProfile specialInfo;
+    AdvanceProfile specialInfo;
 
     @Column
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = {
@@ -51,13 +51,13 @@ public class User {
     List<Job> jobs;
 
     @Column
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Post> posts;
 
     @Column
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Application> applications;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     RouteJob routeJob;
 }

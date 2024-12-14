@@ -7,10 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import uit.se121.FiPT.dto.request.AccountRequest.AccountCreationRequest;
 import uit.se121.FiPT.dto.request.UserRequest.UserCreationRequest;
 import uit.se121.FiPT.dto.request.UserRequest.UserProfileUpdateRequest;
-import uit.se121.FiPT.dto.response.AccountResponse.AccountResponse;
 import uit.se121.FiPT.dto.response.AccountResponse.UserResponse;
 import uit.se121.FiPT.dto.response.ApiResponse;
 import uit.se121.FiPT.dto.response.AccountResponse.UserProfileResponse;
@@ -60,7 +58,7 @@ public class UserController {
                 .build();
     }
 
-    @GetMapping("/{userId}")
+    @PutMapping("/{userId}")
     ApiResponse<UserProfileResponse> updateUser(@PathVariable String userId, @RequestBody UserProfileUpdateRequest request) {
         return ApiResponse.<UserProfileResponse>builder()
                 .result(userService.updateUserProfile(userId, request))
