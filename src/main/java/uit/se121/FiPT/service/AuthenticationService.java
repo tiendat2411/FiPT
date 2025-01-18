@@ -62,7 +62,7 @@ public class AuthenticationService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-        var account = accountRepository.findByUsername(request.getUsername())
+        var account = accountRepository.findByUsername(request.getEmail())
                 .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_EXISTED));
 
         boolean authenticated = passwordEncoder.matches(request.getPassword(),
@@ -76,6 +76,7 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(token)
                 .authenticated(true)
+                .role(account.getRole().getName())
                 .build();
     }
 

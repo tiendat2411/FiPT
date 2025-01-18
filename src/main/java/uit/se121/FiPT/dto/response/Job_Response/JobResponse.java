@@ -13,6 +13,7 @@ import java.util.List;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class JobResponse {
+    String id;
     String name;
     String description;
     Date recruitedDate;
@@ -24,4 +25,5 @@ public class JobResponse {
     String employerName;
     List<Workship> schedule;
     String status;
+    List<String> imageUrls;
 }

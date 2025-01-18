@@ -4,11 +4,9 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import uit.se121.FiPT.dto.request.RouteJobRequest.RouteJobCreationRequest;
 import uit.se121.FiPT.dto.request.RouteJobRequest.UpdateRouteJobRequest;
-import uit.se121.FiPT.dto.response.ApiResponse;
 import uit.se121.FiPT.dto.response.RouteJobResponse.RouteJobResponse;
 import uit.se121.FiPT.entity.Category;
 import uit.se121.FiPT.entity.Job;
@@ -16,12 +14,11 @@ import uit.se121.FiPT.entity.RouteJob;
 import uit.se121.FiPT.entity.User;
 import uit.se121.FiPT.mapper.RouteJobMapper;
 import uit.se121.FiPT.repository.CategoryRepository;
-import uit.se121.FiPT.repository.JobRepository;
+import uit.se121.FiPT.repository.JobJpaRepository;
 import uit.se121.FiPT.repository.RouteJobRepository;
 import uit.se121.FiPT.repository.UserRepository;
 
 import java.time.Period;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +30,7 @@ public class RouteJobService {
     RouteJobRepository routeJobRepository;
     UserRepository userRepository;
     CategoryRepository categoryRepository;
-    JobRepository jobRepository;
+    JobJpaRepository jobRepository;
 
     RouteJobMapper routeJobMapper;
 

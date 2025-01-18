@@ -11,9 +11,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ApplyJobRequest {
     String user;
-    String employer;
     String job;
-    String date;
-    String status;
     String cvUrls;
 }

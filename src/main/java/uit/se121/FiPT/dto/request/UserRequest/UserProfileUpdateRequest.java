@@ -14,5 +14,8 @@ public class UserProfileUpdateRequest {
     Integer age;
     Boolean gender;
     String avatar;
+    String resume;
     String phoneNumber;
+    String description;
+
 }

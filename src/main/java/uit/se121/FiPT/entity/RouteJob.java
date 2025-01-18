@@ -1,11 +1,9 @@
 package uit.se121.FiPT.entity;
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.Duration;
 import java.time.Period;
 import java.util.List;
 

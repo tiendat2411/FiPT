@@ -1,19 +1,21 @@
 package uit.se121.FiPT.algorithm;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import uit.se121.FiPT.common.Workship;
-import uit.se121.FiPT.dto.CalculateParameter.N_Score.PersonalNeedCalculateDto;
-import uit.se121.FiPT.dto.CalculateParameter.N_Score.PersonalNeedDto;
-import uit.se121.FiPT.dto.CalculateParameter.N_Score.WorkingConditionsDto;
+import uit.se121.FiPT.dto.calculateParameter.N_Score.PersonalNeedCalculateDto;
+import uit.se121.FiPT.dto.calculateParameter.N_Score.PersonalNeedDto;
+import uit.se121.FiPT.dto.calculateParameter.N_Score.WorkingConditionsDto;
 
 import java.time.LocalTime;
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class PersonalNeedCalculate {
-    private int weight;
+    private double weight;
 
     public int calculateWageScore(int Wage) {
         if (Wage < 25000) return 1;
@@ -66,9 +68,9 @@ public class PersonalNeedCalculate {
         return 0;
     }
 
-    public PersonalNeedCalculateDto personalNeedCalculate(PersonalNeedDto personDto, WorkingConditionsDto jobDto) {
-        int wageSocre = calculateWageScore(jobDto.getWage()) * weight * personDto.getWage();
-        int timeScore = calculateMatchPercentage(personDto.getAvailabilities(), jobDto.getWork()) * personDto.getTime() * weight;
+    public PersonalNeedCalculateDto calculatePersonalNeed(PersonalNeedDto personDto, WorkingConditionsDto jobDto) {
+        double wageSocre = calculateWageScore(jobDto.getWage()) * weight * personDto.getWage();
+        double timeScore = calculateMatchPercentage(personDto.getAvailabilities(), jobDto.getWork()) * personDto.getTime() * weight;
         return PersonalNeedCalculateDto.builder()
                 .wageScore(wageSocre)
                 .timeScore(timeScore)

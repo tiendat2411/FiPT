@@ -3,8 +3,10 @@ package uit.se121.FiPT.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.elasticsearch.annotations.Document;
 import uit.se121.FiPT.common.Workship;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "job")
+@Document(indexName = "jobs")
 public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -39,10 +42,10 @@ public class Job {
     String description;
 
     @Column(name = "recruited_date")
-    Date recruitedDate;
+    LocalDate recruitedDate;
 
     @Column(name = "accepted_date")
-    Date acceptedDate;
+    LocalDate acceptedDate;
 
     @ManyToOne(cascade = {
             CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH
@@ -51,7 +54,7 @@ public class Job {
     Category jobCategory;
 
     @Column
-    Double wage;
+    int wage;
 
     @Column
     String address;

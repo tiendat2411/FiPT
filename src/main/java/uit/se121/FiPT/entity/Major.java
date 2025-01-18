@@ -32,6 +32,12 @@ public class Major {
     @Column(name = "networking_weight")
     int networkingWeight;
 
+    @Column(name = "wage_weight")
+    int wage;
+
+    @Column(name ="time_weight")
+    int time;
+
     @Column(name = "ex_skill_1")
     String expertiseSkillName1;
 

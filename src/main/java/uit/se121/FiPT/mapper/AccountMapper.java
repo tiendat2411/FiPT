@@ -12,5 +12,7 @@ public interface AccountMapper {
     @Mapping(target = "creationDate", ignore = true)
     Account toAccount(AccountCreationRequest request);
 
+    @Mapping(source = "role.name", target = "role")
+    @Mapping(source = "isActive", target = "isActive")
     AccountResponse toAccountResponse(Account account);
 }

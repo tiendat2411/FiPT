@@ -13,6 +13,6 @@ public class AccountResponse {
     String username;
     String password;
     String email;
-    Boolean active;
-    String roles;
+    Boolean isActive;
+    String role;
 }
