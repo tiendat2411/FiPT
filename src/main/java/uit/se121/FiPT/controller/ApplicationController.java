@@ -61,4 +61,11 @@ public class ApplicationController {
                 .result(applicationService.getAllApplicationsByUser(userId))
                 .build();
     }
+
+    @GetMapping
+    ApiResponse<List<ApplicationResponse>> getAllApplication() {
+        return ApiResponse.<List<ApplicationResponse>>builder()
+                .result(applicationService.getAllApplications())
+                .build();
+    }
 }

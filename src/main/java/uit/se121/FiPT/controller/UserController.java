@@ -4,25 +4,34 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import uit.se121.FiPT.dto.request.UserRequest.IsLoginRequest;
 import uit.se121.FiPT.dto.request.UserRequest.UserCreationRequest;
 import uit.se121.FiPT.dto.request.UserRequest.UserProfileUpdateRequest;
-import uit.se121.FiPT.dto.response.AccountResponse.UserResponse;
+import uit.se121.FiPT.dto.response.AccountResponse.*;
 import uit.se121.FiPT.dto.response.ApiResponse;
-import uit.se121.FiPT.dto.response.AccountResponse.UserProfileResponse;
 import uit.se121.FiPT.service.UserService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class UserController {
     UserService userService;
+
+    @PostMapping("/isLogin")
+    ApiResponse<IsLoginResponse> isLogin(@RequestBody IsLoginRequest request) {
+
+        return ApiResponse.<IsLoginResponse>builder()
+                .result(userService.isLogin(request))
+                .build();
+    }
 
     @GetMapping
     ApiResponse<List<UserResponse>> getUsers() {
@@ -43,9 +52,16 @@ public class UserController {
                 .build();
     }
 
+    @GetMapping("/all-users")
+    ApiResponse<List<UserResponse>> getAllUsers() {
+        return ApiResponse.<List<UserResponse>>builder()
+                .result(userService.getUsers())
+                .build();
+    }
+
     @GetMapping("/myInfo")
-    ApiResponse<UserProfileResponse> getMyInfo() {
-        return ApiResponse.<UserProfileResponse>builder()
+    ApiResponse<MyProfileResponse> getMyInfo() {
+        return ApiResponse.<MyProfileResponse>builder()
                 .result(userService.getMyProfile())
                 .build();
     }
@@ -58,7 +74,7 @@ public class UserController {
                 .build();
     }
 
-    @PutMapping("/{userId}")
+    @PutMapping("/update-profile/{userId}")
     ApiResponse<UserProfileResponse> updateUser(@PathVariable String userId, @RequestBody UserProfileUpdateRequest request) {
         return ApiResponse.<UserProfileResponse>builder()
                 .result(userService.updateUserProfile(userId, request))
@@ -66,8 +82,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    ApiResponse<UserResponse> registerAccount(@RequestBody @Validated UserCreationRequest request) {
-        return ApiResponse.<UserResponse>builder()
+    ApiResponse<AccountResponse> registerAccount(@RequestBody @Validated UserCreationRequest request) {
+        return ApiResponse.<AccountResponse>builder()
                 .result(userService.createUser(request))
                 .build();
     }

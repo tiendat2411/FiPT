@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
 public class MethodRestConfiguration implements RepositoryRestConfigurer {
-    private String url ="localhost:8080";
+    private String url ="localhost:4200";
 
     @Autowired
     private EntityManager entityManager;
@@ -20,6 +20,7 @@ public class MethodRestConfiguration implements RepositoryRestConfigurer {
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
         config.exposeIdsFor(entityManager.getMetamodel().getEntities().stream().map(Type::getJavaType).toArray(Class[]::new));
+
 
         HttpMethod[] disableMethods = {
                 HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH, HttpMethod.DELETE

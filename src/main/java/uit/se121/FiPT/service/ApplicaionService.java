@@ -9,14 +9,13 @@ import uit.se121.FiPT.dto.request.ApplicationRequest.ApplyJobRequest;
 import uit.se121.FiPT.dto.response.ApplicationResponse.ApplicationResponse;
 import uit.se121.FiPT.entity.Application;
 import uit.se121.FiPT.entity.Job;
-import uit.se121.FiPT.exception.AppException;
-import uit.se121.FiPT.exception.ErrorCode;
 import uit.se121.FiPT.mapper.ApplicationMapper;
 import uit.se121.FiPT.repository.ApplicationRepository;
 import uit.se121.FiPT.repository.EmployerRepository;
-import uit.se121.FiPT.repository.JobRepository;
+import uit.se121.FiPT.repository.JobJpaRepository;
 import uit.se121.FiPT.repository.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,16 +26,23 @@ public class ApplicaionService {
     ApplicationRepository applicationRepository;
     UserRepository userRepository;
     EmployerRepository employerRepository;
-    JobRepository jobRepository;
+    JobJpaRepository jobRepository;
 
     ApplicationMapper applicationMapper;
 
     public ApplicationResponse applyJob(ApplyJobRequest request) {
-        if (applicationRepository.findById(request.getJob()).get().getStatus().equals("Approved")) {
-            throw new AppException(ErrorCode.JOB_APPROVED);
-        }
+//        if (applicationRepository.findById(request.getJob()).get().getStatus().equals("Approved")) {
+//            throw new AppException(ErrorCode.JOB_APPROVED);
+//        }
 
-        Application application = applicationMapper.toApplication(request);
+        Application application = Application.builder()
+                .user(userRepository.findById(request.getUser()).get())
+                .job(jobRepository.findById(request.getJob()).get())
+                .employer(jobRepository.findById(request.getJob()).get().getEmployer())
+                .date(LocalDateTime.now())
+                .cvUrls(request.getCvUrls())
+                .build();
+        application.setStatus("Applied");
         return applicationMapper.toApplicationResponse(applicationRepository.save(application));
     }
 
@@ -72,6 +78,11 @@ public class ApplicaionService {
 
     public List<ApplicationResponse> getAllApplicationsByUser(String userId) {
         return applicationRepository.findByUser_Id(userId).stream()
+                .map(applicationMapper::toApplicationResponse).toList();
+    }
+
+    public List<ApplicationResponse> getAllApplications() {
+        return applicationRepository.findAll().stream()
                 .map(applicationMapper::toApplicationResponse).toList();
     }
 }

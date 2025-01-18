@@ -14,13 +14,11 @@ import java.util.List;
 public class JobCreationRequest {
     String name;
     String description;
-    Date recruitedDate;
     String categoryId;
     double wage;
     String address;
-    String contactInfo;
+//    String contactInfo;
     String requirements;
     String employerId;
-    List<String> imageUrl;
-    String status;
+    String imageUrl;
 }

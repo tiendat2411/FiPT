@@ -1,15 +1,17 @@
 package uit.se121.FiPT.algorithm;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import uit.se121.FiPT.dto.CalculateParameter.S_Score.SoftSkillCalculateDto;
-import uit.se121.FiPT.dto.CalculateParameter.S_Score.SoftSkillJobDto;
+import uit.se121.FiPT.dto.calculateParameter.S_Score.SoftSkillCalculateDto;
+import uit.se121.FiPT.dto.calculateParameter.S_Score.SoftSkillJobDto;
 import uit.se121.FiPT.entity.Major;
 
 @Component
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class SoftSkillsCalculate {
-    private int weight;
+    private double weight;
 
     public SoftSkillCalculateDto calculateScore(Major major, SoftSkillJobDto softSkillDto) {
         return SoftSkillCalculateDto.builder()

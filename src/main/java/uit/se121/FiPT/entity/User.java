@@ -42,7 +42,7 @@ public class User {
     String phoneNumber;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    AdvanceProfile specialInfo;
+    AdvancedProfile advancedProfile;
 
     @Column
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = {
@@ -60,4 +60,15 @@ public class User {
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     RouteJob routeJob;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_job_saved", // Tên bảng trung gian
+            joinColumns = @JoinColumn(name = "user_id"), // Khóa ngoại trỏ đến bảng User
+            inverseJoinColumns = @JoinColumn(name = "job_id") // Khóa ngoại trỏ đến bảng Job
+    )
+    List<Job> jobSaved;
+
+    @Column
+    String resume;
 }

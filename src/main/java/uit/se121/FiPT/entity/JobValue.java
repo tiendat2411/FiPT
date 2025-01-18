@@ -54,6 +54,6 @@ public class JobValue {
     @Column(name = "main_ex_skill_2")
     String mainExpertiseSkill2;
 
-    @Column(name = "main_ex_skill_2")
+    @Column(name = "main_ex_skill_3")
     String mainExpertiseSkill3;
 }

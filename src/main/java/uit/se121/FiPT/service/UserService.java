@@ -8,11 +8,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import uit.se121.FiPT.dto.request.UserRequest.IsLoginRequest;
 import uit.se121.FiPT.dto.request.UserRequest.UserCreationRequest;
 import uit.se121.FiPT.dto.request.UserRequest.UserProfileUpdateRequest;
-import uit.se121.FiPT.dto.response.AccountResponse.UserProfileResponse;
-import uit.se121.FiPT.dto.response.AccountResponse.UserResponse;
-import uit.se121.FiPT.dto.response.ApiResponse;
+import uit.se121.FiPT.dto.response.AccountResponse.*;
 import uit.se121.FiPT.entity.Account;
 import uit.se121.FiPT.entity.User;
 import uit.se121.FiPT.exception.AppException;
@@ -36,9 +35,26 @@ public class UserService {
     AccountRepository accountRepository;
 
     UserMapper userMapper;
+    AccountMapper accountMapper;
     PasswordEncoder passwordEncoder;
 
-    public UserResponse createUser(UserCreationRequest request) {
+    public IsLoginResponse isLogin(IsLoginRequest isLoginRequest) {
+        User user = userRepository.findByAccount_Email(isLoginRequest.getEmail());
+
+        if ( user != null ) {
+            return IsLoginResponse.builder()
+                    .success(true)
+                    .isLogin(true)
+                    .build();
+        } else {
+            return IsLoginResponse.builder()
+                    .success(true)
+                    .isLogin(false)
+                    .build();
+        }
+    }
+
+    public AccountResponse createUser(UserCreationRequest request) {
         if (accountRepository.existsByUsername(request.getUsername())) {
             throw new AppException(ErrorCode.ACCOUNT_EXISTED);
         }
@@ -53,23 +69,24 @@ public class UserService {
 
         User user = new User();
         user.setAccount(account);
-        return userMapper.toUserResponse(userRepository.save(user));
+        userRepository.saveAndFlush(user);
+        return accountMapper.toAccountResponse(account);
     }
 
-    public UserProfileResponse getMyProfile() {
+    public MyProfileResponse getMyProfile() {
         var context = SecurityContextHolder.getContext();
         String name = context.getAuthentication().getName();
-
-        User user = userRepository.findByAccount_Username(name).orElseThrow(
-                () -> new AppException(ErrorCode.USER_NOT_EXISTED));
-
-        return userMapper.toUserProfileResponse(user);
+        User user = userRepository.findByAccount_Username(name).get();
+        MyProfileResponse response =  userMapper.toMyProfileResponse(user);
+        response.setCreationDate(user.getAccount().getCreationDate().toString());
+        return response;
     }
 
     public UserProfileResponse updateUserProfile(String userId, UserProfileUpdateRequest request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
+        System.out.println(request.getResume());
         userMapper.updateUserProfile(user, request);
 
         return userMapper.toUserProfileResponse(userRepository.save(user));
@@ -79,7 +96,6 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<UserResponse> getUsers() {
         return userRepository.findAll().stream()
                 .map(userMapper::toUserResponse).toList();
